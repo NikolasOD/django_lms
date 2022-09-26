@@ -6,7 +6,7 @@ from django.db import models
 
 from faker import Faker
 
-from .validators import ValidEmailDomain
+from .validators import ValidEmailDomain, validate_unique_email
 
 VALID_DOMAIN_LIST = ('@gmail.com', '@yahoo.com', '@test.com')
 
@@ -26,7 +26,7 @@ class Student(models.Model):
         error_messages={'min_length': '"last_name" field value less than two symbols'}
     )
     birthday = models.DateField(default=date.today, null=True, blank=True)
-    email = models.EmailField(validators=[ValidEmailDomain(*VALID_DOMAIN_LIST)])
+    email = models.EmailField(validators=[validate_unique_email, ValidEmailDomain(*VALID_DOMAIN_LIST)])
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'

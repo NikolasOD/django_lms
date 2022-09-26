@@ -13,3 +13,9 @@ class ValidEmailDomain:
                 break
         else:
             raise ValidationError(f'<{(args[0].split("@"))[1]}> is invalid domain name.')
+
+
+def validate_unique_email(student_email):
+    from .models import Student
+    if Student.objects.filter(email=student_email).exists():
+        raise ValidationError(f'Email <{student_email}> already registered.')
