@@ -14,6 +14,10 @@ class CreateStudentForm(forms.ModelForm):
             'phone',
         ]
 
+        widgets = {
+            'birthday': forms.DateInput(attrs={'type': 'date'}),
+        }
+
     def clean(self):
         pass
 
@@ -39,3 +43,17 @@ class CreateStudentForm(forms.ModelForm):
             if ch.isnumeric() or ch in valid_symbols:
                 clear_value += ch
         return clear_value
+
+
+class UpdateStudentForm(forms.ModelForm):
+    class Meta:
+        model = Student
+        fields = [
+            'first_name',
+            'last_name',
+            'birthday',
+        ]
+
+        widgets = {
+            'birthday': forms.DateInput(attrs={'type': 'date'}),
+        }
