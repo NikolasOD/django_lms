@@ -27,6 +27,11 @@ class Student(models.Model):
     )
     birthday = models.DateField(default=date.today, null=True, blank=True)
     email = models.EmailField(validators=[validate_unique_email, ValidEmailDomain(*VALID_DOMAIN_LIST)])
+    phone = models.CharField(
+        max_length=30,
+        validators=[MinLengthValidator(6)],
+        error_messages={'min_length': '"phone" field value less than six symbols'}
+    )
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
@@ -36,14 +41,15 @@ class Student(models.Model):
 
     @classmethod
     def generate_fake_data(cls, cnt):
-        f = Faker()
-
         for _ in range(cnt):
+            f = Faker()
             first_name = f.first_name()
             last_name = f.last_name()
             email = f'{first_name}.{last_name}{f.random.choice(VALID_DOMAIN_LIST)}'
             birthday = f.date()
-            st = cls(first_name=first_name, last_name=last_name, birthday=birthday, email=email)
+            f = Faker('uk_UA')
+            phone = f.phone_number()
+            st = cls(first_name=first_name, last_name=last_name, birthday=birthday, email=email, phone=phone)
             try:
                 st.full_clean()
                 st.save()
