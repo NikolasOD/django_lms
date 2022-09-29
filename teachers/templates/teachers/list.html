@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LMS - {{ title }}</title>
+</head>
+<body>
+    <h1>{{ title }}</h1>
+    <table>
+    {% for teacher in teachers %}
+        <tr>
+            <td>{{ teacher.pk }}</td>
+            <td><a href="detail/{{ teacher.pk }}/">{{ teacher.first_name }}</a></td>
+            <td>{{ teacher.last_name }}</td>
+            <td>{{ teacher.specialization }}</td>
+            <td><a href="update/{{ teacher.pk }}/">Edit</a></td>
+        </tr>
+    {% endfor %}
+    </table>
+</body>
+</html>

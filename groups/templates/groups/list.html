@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LMS - {{ title }}</title>
+</head>
+<body>
+    <h1>{{ title }}</h1>
+    <table>
+    {% for group in groups %}
+        <tr>
+            <td>{{ group.pk }}</td>
+            <td><a href="detail/{{ group.pk }}/">{{ group.group_name }}</a></td>
+            <td><a href="update/{{ group.pk }}/">Edit</a></td>
+        </tr>
+    {% endfor %}
+    </table>
+</body>
+</html>
