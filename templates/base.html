@@ -15,8 +15,18 @@
     <table id="menu">
         <tr>
             <td style="margin: 5px; padding: 5px;"><a href="{% url 'home' %}">Home</a></td>
-            <td style="margin: 5px; padding: 5px;"><a href="{% url 'student:list' %}">List</a></td>
-            <td style="margin: 5px; padding: 5px;"><a href="{% url 'student:create' %}">Create</a></td>
+            <td style="margin: 5px; padding: 5px;"><a href="{% url 'student:list' %}">List of students</a></td>
+            <td style="margin: 5px; padding: 5px;"><a href="{% url 'student:create' %}">Create student</a></td>
+        </tr>
+        <tr>
+            <td style="margin: 5px; padding: 5px;"></td>
+            <td style="margin: 5px; padding: 5px;"><a href="{% url 'groups:list' %}">List of groups</a></td>
+            <td style="margin: 5px; padding: 5px;"><a href="{% url 'groups:create' %}">Create group</a></td>
+        </tr>
+        <tr>
+            <td style="margin: 5px; padding: 5px;"></td>
+            <td style="margin: 5px; padding: 5px;"><a href="{% url 'teachers:list' %}">List of teachers</a></td>
+            <td style="margin: 5px; padding: 5px;"><a href="{% url 'teachers:create' %}">Create teacher</a></td>
         </tr>
     </table>
     <br><br>

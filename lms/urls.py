@@ -19,19 +19,11 @@ from core.views import index
 from django.contrib import admin
 from django.urls import include, path
 
-from groups.views import detail_group, list_groups, update_group
-
-from teachers.views import detail_teacher, list_teachers, update_teacher
-
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='home'),
-    path('groups/', list_groups),
-    path('groups/detail/<int:group_id>/', detail_group),
-    path('groups/update/<int:group_id>/', update_group),
-    path('teachers/', list_teachers),
-    path('teachers/detail/<int:teacher_id>/', detail_teacher),
-    path('teachers/update/<int:teacher_id>/', update_teacher),
+    path('groups/', include('groups.urls')),
+    path('teachers/', include('teachers.urls')),
     path('students/', include('students.urls')),
 ]

@@ -1,21 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>LMS - {{ title }}</title>
-</head>
-<body>
-    <h1>{{ title }}</h1>
+{% extends 'base.html' %}
+
+{% block title %}List of teachers{% endblock %}
+
+{% block content %}
+    <p>Search for a teacher:</p>
+    <form method="get">
+          <label for="first_name">First name:</label>
+          <input type="text" id="first_name" name="first_name" placeholder="John"><br><br>
+          <label for="last_name">Last name:</label>
+          <input type="text" id="last_name" name="last_name" placeholder="Doe"><br><br>
+          <input type="submit" value="Search">
+    </form>
+    <br><br>
+    <h1>List of teachers</h1>
     <table>
     {% for teacher in teachers %}
         <tr>
             <td>{{ teacher.pk }}</td>
-            <td><a href="detail/{{ teacher.pk }}/">{{ teacher.first_name }}</a></td>
+            <td><a href="{% url 'teachers:detail' teacher.pk %}">{{ teacher.first_name }}</a></td>
             <td>{{ teacher.last_name }}</td>
             <td>{{ teacher.specialization }}</td>
-            <td><a href="update/{{ teacher.pk }}/">Edit</a></td>
+            <td><a href="{% url 'teachers:update' teacher.pk %}">Edit</a></td>
+            <td><a href="{% url 'teachers:delete' teacher.pk %}">Delete</a></td>
         </tr>
     {% endfor %}
     </table>
-</body>
-</html>
+{% endblock %}

@@ -1,5 +1,7 @@
 from datetime import date
 
+from core.validators import ValidEmailDomain
+
 from django.core.exceptions import ValidationError
 from django.core.validators import MinLengthValidator
 from django.db import models
@@ -25,7 +27,7 @@ class Teacher(models.Model):
         error_messages={'min_length': '"specialization" field value less than two symbols'}
     )
     birthday = models.DateField(default=date.today, null=True, blank=True)
-    email = models.EmailField(unique=True)
+    email = models.EmailField(validators=[ValidEmailDomain(*VALID_DOMAIN_LIST)], unique=True)
     phone = models.CharField(
         max_length=30,
         validators=[MinLengthValidator(6)],

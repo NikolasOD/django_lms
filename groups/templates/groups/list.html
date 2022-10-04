@@ -1,19 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>LMS - {{ title }}</title>
-</head>
-<body>
-    <h1>{{ title }}</h1>
+{% extends 'base.html' %}
+
+{% block title %}List of groups{% endblock %}
+
+{% block content %}
+    <p>Search for a group:</p>
+    <form method="get">
+          <label for="group_name">Group name:</label>
+          <input type="text" id="group_name" name="group_name" placeholder="Python Advanced"><br><br>
+          <label for="group_description">Group description:</label>
+          <input type="text" id="group_description" name="group_description" placeholder="Back-end development"><br><br>
+          <input type="submit" value="Search">
+    </form>
+    <br><br>
+    <h1>List of groups</h1>
     <table>
     {% for group in groups %}
         <tr>
             <td>{{ group.pk }}</td>
-            <td><a href="detail/{{ group.pk }}/">{{ group.group_name }}</a></td>
-            <td><a href="update/{{ group.pk }}/">Edit</a></td>
+            <td><a href="{% url 'groups:detail' group.pk  %}">{{ group.group_name }}</a></td>
+            <td><a href="{% url 'groups:update' group.pk  %}">Edit</a></td>
+            <td><a href="{% url 'groups:delete' group.pk  %}">Delete</a></td>
         </tr>
     {% endfor %}
     </table>
-</body>
-</html>
+{% endblock %}
