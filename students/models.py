@@ -2,6 +2,8 @@ from datetime import date
 
 from core.validators import ValidEmailDomain
 
+from dateutil.relativedelta import relativedelta
+
 from django.core.exceptions import ValidationError
 from django.core.validators import MinLengthValidator
 from django.db import models
@@ -37,6 +39,9 @@ class Student(models.Model):
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'
+
+    def get_age(self):
+        return relativedelta(date.today(), self.birthday).years
 
     class Meta:
         db_table = 'students'
