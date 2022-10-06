@@ -40,7 +40,7 @@ def create_teacher(request):
         form = CreateTeacherForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse('list'))
+            return HttpResponseRedirect(reverse('teachers:list'))
 
     return render(request, 'teachers/create.html', {'form': form})
 
@@ -54,7 +54,7 @@ def update_teacher(request, teacher_id):
         form = UpdateTeacherForm(request.POST, instance=teacher)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse('list'))
+            return HttpResponseRedirect(reverse('teachers:list'))
 
     return render(request, 'teachers/update.html', {'form': form})
 
@@ -64,6 +64,6 @@ def delete_teacher(request, teacher_id):
 
     if request.method == 'POST':
         teacher.delete()
-        return HttpResponseRedirect(reverse('list'))
+        return HttpResponseRedirect(reverse('teachers:list'))
 
     return render(request, 'teachers/delete.html', {'teacher': teacher})

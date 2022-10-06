@@ -40,7 +40,7 @@ def create_group(request):
         form = CreateGroupForm(request.POST)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse('list'))
+            return HttpResponseRedirect(reverse('groups:list'))
 
     return render(request, 'groups/create.html', {'form': form})
 
@@ -54,7 +54,7 @@ def update_group(request, group_id):
         form = UpdateGroupForm(request.POST, instance=group)
         if form.is_valid():
             form.save()
-            return HttpResponseRedirect(reverse('list'))
+            return HttpResponseRedirect(reverse('groups:list'))
 
     return render(request, 'groups/update.html', {'form': form})
 
@@ -64,6 +64,6 @@ def delete_group(request, group_id):
 
     if request.method == 'POST':
         group.delete()
-        return HttpResponseRedirect(reverse('list'))
+        return HttpResponseRedirect(reverse('groups:list'))
 
     return render(request, 'groups/delete.html', {'group': group})

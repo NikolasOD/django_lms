@@ -13,18 +13,6 @@
 </head>
 <body>
     {% include 'includes/navbar.html' %}
-    <table id="menu">
-        <tr>
-            <td style="margin: 5px; padding: 5px;"></td>
-            <td style="margin: 5px; padding: 5px;"><a href="{% url 'groups:list' %}">List of groups</a></td>
-            <td style="margin: 5px; padding: 5px;"><a href="{% url 'groups:create' %}">Create group</a></td>
-        </tr>
-        <tr>
-            <td style="margin: 5px; padding: 5px;"></td>
-            <td style="margin: 5px; padding: 5px;"><a href="{% url 'teachers:list' %}">List of teachers</a></td>
-            <td style="margin: 5px; padding: 5px;"><a href="{% url 'teachers:create' %}">Create teacher</a></td>
-        </tr>
-    </table>
     <div class="container mt-4 pt-5">
         {% block content %}{% endblock %}
     </div>
