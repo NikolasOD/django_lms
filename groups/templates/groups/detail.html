@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Detail of {{ group.group_name }}{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-5"></div>
+        <div class="col">
+            <div class="card" style="width: 18rem;">
+                <div class="card-header">
+                    <a href="{% url 'groups:update' group.pk  %}">{{ group.group_name }}</a>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">{{ group.group_start_date }}</li>
+                    <li class="list-group-item">{{ group.group_description }}
+                </ul>
+                <a class="btn btn-outline-primary mt-3" href="{% url 'groups:list' %}">Back to list</a>
+            </div>
+        </div>
+        <div class="col-5"></div>
+    </div>
+{% endblock %}

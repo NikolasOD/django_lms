@@ -10,27 +10,26 @@ from django.db import models
 
 from faker import Faker
 
-from .validators import validate_unique_email
-
 VALID_DOMAIN_LIST = ('@gmail.com', '@yahoo.com', '@test.com')
 
 
-class Student(models.Model):
+class Teacher(models.Model):
     first_name = models.CharField(
         max_length=100,
-        verbose_name='first name',
-        db_column='first_name_column',
         validators=[MinLengthValidator(2, '"first_name" field value less than two symbols')]
     )
     last_name = models.CharField(
         max_length=100,
-        verbose_name='last name',
-        db_column='last_name_column',
         validators=[MinLengthValidator(2)],
         error_messages={'min_length': '"last_name" field value less than two symbols'}
     )
+    specialization = models.CharField(
+        max_length=100,
+        validators=[MinLengthValidator(2)],
+        error_messages={'min_length': '"specialization" field value less than two symbols'}
+    )
     birthday = models.DateField(default=date.today, null=True, blank=True)
-    email = models.EmailField(validators=[validate_unique_email, ValidEmailDomain(*VALID_DOMAIN_LIST)])
+    email = models.EmailField(validators=[ValidEmailDomain(*VALID_DOMAIN_LIST)], unique=True)
     phone = models.CharField(
         max_length=30,
         validators=[MinLengthValidator(6)],
@@ -44,7 +43,7 @@ class Student(models.Model):
         return relativedelta(date.today(), self.birthday).years
 
     class Meta:
-        db_table = 'students'
+        db_table = 'teachers'
 
     @classmethod
     def generate_fake_data(cls, cnt):
@@ -52,11 +51,17 @@ class Student(models.Model):
             f = Faker()
             first_name = f.first_name()
             last_name = f.last_name()
+            specialization = f.job()
             email = f'{first_name}.{last_name}{f.random.choice(VALID_DOMAIN_LIST)}'
             birthday = f.date()
             f = Faker('uk_UA')
             phone = f.phone_number()
-            st = cls(first_name=first_name, last_name=last_name, birthday=birthday, email=email, phone=phone)
+            st = cls(first_name=first_name,
+                     last_name=last_name,
+                     specialization=specialization,
+                     birthday=birthday,
+                     email=email,
+                     phone=phone)
             try:
                 st.full_clean()
                 st.save()
