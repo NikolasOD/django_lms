@@ -1,9 +1,11 @@
 from django import forms
 
+from django_filters import FilterSet
+
 from .models import Teacher
 
 
-class CreateTeacherForm(forms.ModelForm):
+class BaseTeacherForm(forms.ModelForm):
     class Meta:
         model = Teacher
         fields = [
@@ -39,17 +41,22 @@ class CreateTeacherForm(forms.ModelForm):
         return clear_value
 
 
-class UpdateTeacherForm(forms.ModelForm):
-    class Meta:
-        model = Teacher
-        fields = [
-            'first_name',
-            'last_name',
-            'specialization',
-            'birthday',
-            'phone',
+class CreateTeacherForm(BaseTeacherForm):
+    class Meta(BaseTeacherForm.Meta):
+        pass
+
+
+class UpdateTeacherForm(BaseTeacherForm):
+    class Meta(BaseTeacherForm.Meta):
+        exclude = [
+            'email'
         ]
 
-        widgets = {
-            'birthday': forms.DateInput(attrs={'type': 'date'}),
+
+class TeacherFilterForm(FilterSet):
+    class Meta:
+        model = Teacher
+        fields = {
+            'first_name': ['exact', 'icontains'],
+            'last_name': ['exact', 'startswith'],
         }

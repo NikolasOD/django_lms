@@ -1,22 +1,29 @@
 {% extends 'base.html' %}
 
+{% load crispy_forms_filters %}
+
 {% block title %}List of teachers{% endblock %}
 
 {% block content %}
     <div class="row mb-3">
         <div class="col">
-            <p>Search for a teacher:</p>
-            <form method="get">
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingFirstName" placeholder="A" name="first_name">
-                    <label for="floatingFirstName">First name</label>
+            <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Search for a teacher
+                        </button>
+                    </h2>
+                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <form method="get">
+                            {{ filter_form.form|crispy }}
+                            <input class="btn btn-outline-primary mt-3" type="submit" value="Search">
+                        </form>
+                    </div>
                 </div>
-                <div class="form-floating">
-                    <input type="text" class="form-control" id="floatingLastName" placeholder="B" name="last_name">
-                    <label for="floatingLastName">Last name</label>
                 </div>
-                <input class="btn btn-outline-primary mt-3" type="submit" value="Search">
-            </form>
+            </div>
         </div>
         <div class="col-6"></div>
     </div>
@@ -35,7 +42,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for teacher in teachers %}
+            {% for teacher in filter_form.qs %}
                 <tr>
                     <td>{{ forloop.counter }}</td>
                     <td><a href="{% url 'teachers:detail' teacher.pk %}">{{ teacher.first_name }}</a></td>

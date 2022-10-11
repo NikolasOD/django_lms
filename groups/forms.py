@@ -1,5 +1,7 @@
 from django import forms
 
+from django_filters import FilterSet
+
 from .models import Group
 
 
@@ -29,3 +31,12 @@ class UpdateGroupForm(BaseGroupForm):
         exclude = [
             'start_date'
         ]
+
+
+class GroupFilterForm(FilterSet):
+    class Meta:
+        model = Group
+        fields = {
+            'group_name': ['exact', 'icontains'],
+            'group_description': ['exact', 'icontains'],
+        }

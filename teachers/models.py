@@ -35,6 +35,8 @@ class Teacher(models.Model):
         validators=[MinLengthValidator(6)],
         error_messages={'min_length': '"phone" field value less than six symbols'}
     )
+    create_datetime = models.DateTimeField(auto_now_add=True)
+    update_datetime = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'

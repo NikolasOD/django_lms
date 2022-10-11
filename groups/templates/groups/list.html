@@ -1,22 +1,29 @@
 {% extends 'base.html' %}
 
+{% load crispy_forms_filters %}
+
 {% block title %}List of groups{% endblock %}
 
 {% block content %}
     <div class="row mb-3">
         <div class="col">
-            <p>Search for a group:</p>
-            <form method="get">
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="floatingGroupName" placeholder="A" name="group_name">
-                    <label for="floatingGroupName">Group name</label>
+            <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            Search for a group
+                        </button>
+                    </h2>
+                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        <form method="get">
+                            {{ filter_form.form|crispy }}
+                            <input class="btn btn-outline-primary mt-3" type="submit" value="Search">
+                        </form>
+                    </div>
                 </div>
-                <div class="form-floating">
-                    <input type="text" class="form-control" id="floatingGroupDescription" placeholder="B" name="group_description">
-                    <label for="floatingGroupDescription">Group description</label>
                 </div>
-                <input class="btn btn-outline-primary mt-3" type="submit" value="Search">
-            </form>
+            </div>
         </div>
         <div class="col-6"></div>
     </div>
@@ -35,7 +42,7 @@
             </tr>
         </thead>
         <tbody>
-            {% for group in groups %}
+            {% for group in filter_form.qs %}
                 <tr>
                     <td>{{ forloop.counter }}</td>
                     <td><a href="{% url 'groups:detail' group.pk %}">{{ group.group_name }}</a></td>

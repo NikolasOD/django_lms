@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'crispy_forms',
     'crispy_bootstrap5',
+    'debug_toolbar',
 
     'students.apps.StudentsConfig',
     'groups.apps.GroupsConfig',
@@ -48,6 +49,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -137,6 +139,12 @@ DATE_FORMAT = 'd M Y'
 if DEBUG:
     SHELL_PLUS = 'ipython'
     SHELL_PLUS_PRINT_SQL = True
+    INTERNAL_IPS = [
+        '127.0.0.1',
+    ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
+
+# Django Debug Toolbar settings
+SHOW_COLLAPSED = True
