@@ -1,5 +1,7 @@
 from django import forms
 
+from django_filters import FilterSet
+
 from .models import Student
 
 
@@ -56,4 +58,13 @@ class UpdateStudentForm(forms.ModelForm):
 
         widgets = {
             'birthday': forms.DateInput(attrs={'type': 'date'}),
+        }
+
+
+class StudentFilterForm(FilterSet):
+    class Meta:
+        model = Student
+        fields = {
+            'first_name': ['exact', 'icontains'],
+            'last_name': ['exact', 'startswith'],
         }

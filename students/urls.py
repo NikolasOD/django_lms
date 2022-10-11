@@ -6,7 +6,7 @@ from .views import detail_student
 from .views import get_students
 from .views import update_student
 
-app_name = 'student'
+app_name = 'students'
 
 urlpatterns = [
     path('create/', create_student, name='create'),

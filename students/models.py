@@ -10,6 +10,8 @@ from django.db import models
 
 from faker import Faker
 
+from groups.models import Group
+
 from .validators import validate_unique_email
 
 VALID_DOMAIN_LIST = ('@gmail.com', '@yahoo.com', '@test.com')
@@ -36,6 +38,9 @@ class Student(models.Model):
         validators=[MinLengthValidator(6)],
         error_messages={'min_length': '"phone" field value less than six symbols'}
     )
+    group = models.ForeignKey(Group, on_delete=models.CASCADE, null=True, related_name='students')
+    create_datetime = models.DateTimeField(auto_now_add=True)
+    update_datetime = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f'{self.first_name} {self.last_name}'

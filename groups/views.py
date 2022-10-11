@@ -56,7 +56,7 @@ def update_group(request, group_id):
             form.save()
             return HttpResponseRedirect(reverse('groups:list'))
 
-    return render(request, 'groups/update.html', {'form': form})
+    return render(request, 'groups/update.html', {'form': form, 'group': group})
 
 
 def delete_group(request, group_id):

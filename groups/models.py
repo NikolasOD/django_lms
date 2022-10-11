@@ -17,7 +17,8 @@ class Group(models.Model):
         validators=[MinLengthValidator(2)],
         error_messages={'min_length': '"group_name" field value less than two symbols'}
     )
-    group_start_date = models.DateField(validators=[validate_start_date], default=date.today, null=True, blank=True)
+    group_start_date = models.DateField(validators=[validate_start_date], default=date.today)
+    group_end_date = models.DateField(validators=[validate_start_date], default=date.today, null=True, blank=True)
     group_description = models.TextField(
         max_length=120,
         verbose_name='group description',
@@ -25,9 +26,11 @@ class Group(models.Model):
         validators=[MinLengthValidator(2)],
         error_messages={'min_length': '"group_description" field value less than two symbols'}
     )
+    create_datetime = models.DateTimeField(auto_now_add=True)
+    update_datetime = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'{self.group_name} {self.group_start_date}'
+        return f'Group name: <{self.group_name}>; Start at: <{self.group_start_date}>'
 
     class Meta:
         db_table = 'groups'
