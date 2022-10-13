@@ -43,7 +43,10 @@ class Student(models.Model):
     update_datetime = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'{self.first_name} {self.last_name}'
+        if self.group is None:
+            return f'{self.first_name} {self.last_name}'
+        else:
+            return f'{self.first_name} {self.last_name} ({self.group.group_name})'
 
     def get_age(self):
         return relativedelta(date.today(), self.birthday).years

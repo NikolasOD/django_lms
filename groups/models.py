@@ -26,6 +26,13 @@ class Group(models.Model):
         validators=[MinLengthValidator(2)],
         error_messages={'min_length': '"group_description" field value less than two symbols'}
     )
+    headman = models.OneToOneField(
+        'students.Student',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='headman_group'
+    )
     create_datetime = models.DateTimeField(auto_now_add=True)
     update_datetime = models.DateTimeField(auto_now=True)
 
