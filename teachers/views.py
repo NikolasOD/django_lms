@@ -1,31 +1,17 @@
-from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
 
-from webargs.djangoparser import use_args
-from webargs.fields import Str
-
-from .forms import CreateTeacherForm, UpdateTeacherForm
+from .forms import CreateTeacherForm, TeacherFilterForm, UpdateTeacherForm
 from .models import Teacher
 
 
-@use_args(
-    {
-        'first_name': Str(required=False),
-        'last_name': Str(required=False),
-    },
-    location='query'
-)
-def list_teachers(request, args):
+def list_teachers(request):
     teachers = Teacher.objects.all()
 
-    if len(args) != 0 and args.get('first_name') or args.get('last_name'):
-        teachers = teachers.filter(
-            Q(first_name=args.get('first_name', '')) | Q(last_name=args.get('last_name', ''))
-        )
+    filter_form = TeacherFilterForm(data=request.GET, queryset=teachers)
 
-    return render(request, 'teachers/list.html', {'teachers': teachers})
+    return render(request, 'teachers/list.html', {'filter_form': filter_form})
 
 
 def detail_teacher(request, teacher_id):
