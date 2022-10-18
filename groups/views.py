@@ -1,7 +1,7 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
-from django.views.generic import ListView, UpdateView
+from django.views.generic import DeleteView, DetailView, ListView, UpdateView
 
 from students.models import Student
 
@@ -14,9 +14,9 @@ class ListGroupView(ListView):
     template_name = 'groups/list.html'
 
 
-def detail_group(request, group_id):
-    group = get_object_or_404(Group, pk=group_id)
-    return render(request, 'groups/detail.html', {'group': group})
+class DetailGroupView(DetailView):
+    model = Group
+    template_name = 'groups/detail.html'
 
 
 def create_group(request):
@@ -64,11 +64,7 @@ class UpdateGroupView(UpdateView):
         return response
 
 
-def delete_group(request, group_id):
-    group = get_object_or_404(Group, pk=group_id)
-
-    if request.method == 'POST':
-        group.delete()
-        return HttpResponseRedirect(reverse('groups:list'))
-
-    return render(request, 'groups/delete.html', {'group': group})
+class DeleteGroupView(DeleteView):
+    model = Group
+    success_url = reverse_lazy('groups:list')
+    template_name = 'groups/delete.html'
