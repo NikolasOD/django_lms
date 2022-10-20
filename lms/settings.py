@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'teachers.apps.TeachersConfig',
     'courses.apps.CoursesConfig',
     'core.apps.CoreConfig',
+    'accounts.apps.AccountsConfig'
 ]
 
 MIDDLEWARE = [
@@ -102,6 +103,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {
+            'min_length': 3,
+        },
     },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
@@ -150,3 +154,5 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 # Django Debug Toolbar settings
 SHOW_COLLAPSED = True
+
+EMAIL_PORT = 1025

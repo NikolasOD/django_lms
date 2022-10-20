@@ -1,7 +1,5 @@
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
-from django.urls import reverse, reverse_lazy
-from django.views.generic import DeleteView, DetailView, ListView, UpdateView
+from django.urls import reverse_lazy
+from django.views.generic import DeleteView, DetailView, ListView, UpdateView, CreateView
 
 from students.models import Student
 
@@ -19,16 +17,21 @@ class DetailGroupView(DetailView):
     template_name = 'groups/detail.html'
 
 
-def create_group(request):
-    if request.method == 'GET':
-        form = CreateGroupForm()
-    elif request.method == 'POST':
-        form = CreateGroupForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect(reverse('groups:list'))
+class CreateGroupView(CreateView):
+    model = Group
+    form_class = CreateGroupForm
+    success_url = reverse_lazy('groups:list')
+    template_name = 'groups/create.html'
 
-    return render(request, 'groups/create.html', {'form': form})
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        group = form.save()
+        students = form.cleaned_data['students']
+        for student in students:
+            student.group = group
+            student.save()
+
+        return response
 
 
 class UpdateGroupView(UpdateView):
