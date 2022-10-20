@@ -3,8 +3,8 @@ from django.urls import path
 from .views import CreateStudentView
 from .views import DeleteStudentView
 from .views import DetailStudentView
-from .views import UpdateStudentView
 from .views import ListStudentView
+from .views import UpdateStudentView
 
 app_name = 'students'
 

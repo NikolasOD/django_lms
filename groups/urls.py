@@ -1,10 +1,10 @@
 from django.urls import path
 
+from .views import CreateGroupView
 from .views import DeleteGroupView
 from .views import DetailGroupView
 from .views import ListGroupView
 from .views import UpdateGroupView
-from .views import CreateGroupView
 
 app_name = 'groups'
 
