@@ -1,17 +1,17 @@
 from django.urls import path
 
+from .views import CreateStudentView
+from .views import DeleteStudentView
+from .views import DetailStudentView
+from .views import ListStudentView
 from .views import UpdateStudentView
-from .views import create_student
-from .views import delete_student
-from .views import detail_student
-from .views import get_students
 
 app_name = 'students'
 
 urlpatterns = [
-    path('create/', create_student, name='create'),
-    path('', get_students, name='list'),
-    path('detail/<int:student_id>/', detail_student, name='detail'),
+    path('create/', CreateStudentView.as_view(), name='create'),
+    path('', ListStudentView.as_view(), name='list'),
+    path('detail/<int:pk>/', DetailStudentView.as_view(), name='detail'),
     path('update/<int:pk>/', UpdateStudentView.as_view(), name='update'),
-    path('delete/<int:student_id>/', delete_student, name='delete'),
+    path('delete/<int:pk>/', DeleteStudentView.as_view(), name='delete'),
 ]
