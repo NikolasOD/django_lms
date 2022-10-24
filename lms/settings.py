@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from os import getenv
 from pathlib import Path
 
+from django.urls import reverse_lazy
+
 from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -155,4 +157,7 @@ CRISPY_TEMPLATE_PACK = "bootstrap5"
 # Django Debug Toolbar settings
 SHOW_COLLAPSED = True
 
+# SMTP
 EMAIL_PORT = 1025
+
+LOGIN_REDIRECT_URL = reverse_lazy('home')
