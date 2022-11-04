@@ -5,6 +5,7 @@
 {% block title %}List of students{% endblock %}
 
 {% block content %}
+    <p>Found {{ page_obj.paginator.count }} student(s)</p>
     <div class="row mb-3">
         <div class="col">
             <div class="accordion" id="accordionExample">
